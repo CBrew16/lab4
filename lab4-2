@@ -1,0 +1,45 @@
+
+      case 6: //add your code to do something 
+
+
+        encoderTarget = cmToEncoder(30); //get the distance for two papers 
+        
+        if(encoder[1].pos < encoderTarget){ //If encoder target hasn't been reached, drive forwards
+          setMotor(1, driveSpeed + cMotorAdjustment[0], cIN1Pin[0], cIN2Pin[0]);   
+          setMotor(-1, driveSpeed + cMotorAdjustment[1], cIN1Pin[1], cIN2Pin[1]); // Drive forwards
+        } else{
+          setMotor(0,0,cIN1Pin[0],cIN2Pin[0]);
+          setMotor(0,0,cIN1Pin[1],cIN2Pin[1]); //Stop when distance reached
+          encoder[0].pos = 0; //Reset endcoder for next case
+          robotModeIndex = 7; //only update when it has reached the target
+        
+        }
+        break;
+
+        case 7:  //Rotate 90 clockwise
+        encoderTarget = degreesToEncoder(90);
+
+        if(encoder[0].pos < encoderTarget){ //If not required encoder count, spin (motors in opposite directions)
+          setMotor(-1, driveSpeed + cMotorAdjustment[0], cIN1Pin[0], cIN2Pin[0]); //Turn counterclockwise
+          setMotor(-1, driveSpeed + cMotorAdjustment[1], cIN1Pin[1], cIN2Pin[1]);
+        } else{
+          setMotor(0,0,cIN1Pin[0],cIN2Pin[0]);
+          setMotor(0,0,cIN1Pin[1],cIN2Pin[1]); //Stop when turn is finished 
+          encoder[1].pos = 0;
+          robotModeIndex = 8;
+        }
+
+        break;
+
+        case 8:
+        encoderTarget = cmToEncoder(26); //get the distance for two papers 
+        
+        if(encoder[1].pos < encoderTarget){ //If encoder target hasn't been reached, drive forwards
+          setMotor(1, driveSpeed + cMotorAdjustment[0], cIN1Pin[0], cIN2Pin[0]);   
+          setMotor(-1, driveSpeed + cMotorAdjustment[1], cIN1Pin[1], cIN2Pin[1]); // Drive forwards
+        } else{
+          setMotor(0,0,cIN1Pin[0],cIN2Pin[0]);
+          setMotor(0,0,cIN1Pin[1],cIN2Pin[1]); //Stop when distance reached 
+          robotModeIndex = 9;
+        }
+        break;
